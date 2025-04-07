@@ -3,7 +3,7 @@ NAME_BONUS =
 
 SRC = src/main.c \
 	src/parsing.c \
-	src/utils.c \
+	src/utils1.c \
 	src/init.c
 
 OBJ = $(SRC:.c=.o)
