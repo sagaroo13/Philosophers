@@ -4,7 +4,14 @@ NAME_BONUS =
 SRC = src/main.c \
 	src/parsing.c \
 	src/utils1.c \
-	src/init.c
+	src/utils2.c \
+	src/utils3.c \
+	src/init.c \
+	src/dinner.c \
+	src/synchro.c \
+	src/monitor.c \
+	src/actions.c \
+	src/print_status.c
 
 OBJ = $(SRC:.c=.o)
 

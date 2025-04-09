@@ -15,18 +15,6 @@
 
 #include "../include/philo.h"
 
-void	err_exit(const char *msg)
-{
-	printf("%s\n", msg);
-	exit(EXIT_FAILURE);
-}
-
-void	clean_table(t_table *table)
-{
-	free(table->philos);
-	free(table->forks);
-}
-
 void	*malloc_control(size_t q)
 {
 	void *result;
@@ -74,10 +62,42 @@ void	thread_control(pthread_t *thread, void *(*func)(void *), void *arg,
 		err_exit(RED "Error in thread operations" RESET);
 }
 
-time_t	current_time_ms(void)
+long	time_control(t_time measure)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	if (gettimeofday(&tv, NULL))
+		err_exit("Gettimeofday failed");
+	if (measure == US)
+		return ((tv.tv_sec * 1e6) + tv.tv_usec);
+	else if (measure == MS)
+		return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
+	else if (measure == S)
+		return ((tv.tv_usec / 1e6) + tv.tv_sec);
+	else
+		err_exit(RED "Wrong time operation" RESET);
+	return (0);
+}
+
+void	good_usleep(long usec, t_table *table)
+{
+	long	start;
+	long	elapsed;
+	long	rem;
+
+	start = time_control(US);
+	while (time_control(US) - start < usec)
+	{
+		if (sim_finished(table))
+			break ;
+		elapsed = time_control(US) - start;
+		rem = usec - elapsed;
+		if (rem > 1e3)
+			usleep(rem / 2);
+		else
+		{
+			while (time_control(US) - start < usec)
+				;
+		}
+	}
 }

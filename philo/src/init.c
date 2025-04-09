@@ -53,13 +53,17 @@ static void	init_philos(t_table *table)
 		table->philos[i].full = false;
 		table->philos[i].lst_meal_t = 0;
 		table->philos[i].table = table;
+		mutex_control(&table->philos[i].lst_meal_mtx, INIT);
+		mutex_control(&table->philos[i].n_eats_mtx, INIT);
 		assign_forks(&table->philos[i], table->forks);
 	}
 }
 
 void	init(t_table *table)
 {
-	table->end = false;
+	table->finish = false;
 	init_forks(table);
 	init_philos(table);
+	mutex_control(&table->start_finish, INIT);
+	mutex_control(&table->write, INIT);
 }
