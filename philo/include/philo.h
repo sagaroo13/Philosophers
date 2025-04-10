@@ -44,6 +44,9 @@
 # define WHITE "\033[37m"
 # define RESET "\033[0m"
 
+# define MAX_PHILOS 250
+# define DEBUG 1
+
 /******************************************************************************
  *                                 Structures
  *

@@ -62,6 +62,8 @@ static long	check_input(const char *argvi)
 void	parser(t_table *table, char **argv)
 {
 	table->n_philos = check_input(argv[1]);
+	if (table->n_philos > MAX_PHILOS)
+		err_exit("Philos must be less than 250");
 	table->ttd = check_input(argv[2]) * 1e3;
 	table->tte = check_input(argv[3]) * 1e3;
 	table->tts = check_input(argv[4]) * 1e3;
