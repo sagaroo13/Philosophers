@@ -18,13 +18,15 @@ void	*simulation(void *arg)
 
 	philo = (t_philo *)arg;
 	synchro_start(philo->table);
+	printf(RED"%ld\n"RESET, time_control(US));
+	set_long(&philo->lst_meal_mtx, &philo->lst_meal_t, philo->table->start);
 	while (!sim_finished(philo->table))
 	{
-		eat(philo);
+		eating(philo);
 		if (philo->full)
 			break;
-		print_status(philo, SLEEPING);
-		good_usleep(philo->table->tts, philo->table);
+		sleeping(philo);
+		thinking(philo);
 	}
 	return (NULL);
 }

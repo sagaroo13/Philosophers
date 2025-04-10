@@ -37,6 +37,6 @@ int	main(int argc, char **argv)
 	parser(&table, argv);
 	init(&table);
 	dinner(&table);
-	print_philos_info(&table);
+	// print_philos_info(&table);
 	clean_table(&table);
 }

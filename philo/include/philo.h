@@ -145,6 +145,9 @@ void	create_or_join_all(t_table *table, t_operations operation);
 bool	sim_finished(t_table *table);
 void	print_status(t_philo *philo, t_status status);
 void	good_usleep(long usec, t_table *table);
-void    eat(t_philo *philo);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
+void	died(t_table *table);
 
 #endif

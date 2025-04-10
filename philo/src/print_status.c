@@ -12,8 +12,8 @@ void	print_debug(t_philo *philo, t_status status, long elapsed)
 		printf(CYAN"%-6ld 👤%02d is eating 🍝[meals:%ld]\n"RESET,
 			elapsed, philo->id, philo->n_meals);
 	else if (status == SLEEPING && !sim_finished(philo->table))
-		printf(GREEN"%-6ld 👤%02d is sleeping 😴[meals:%ld]\n"RESET,
-			elapsed, philo->id, philo->n_meals);
+		printf(GREEN"%-6ld 👤%02d is sleeping 😴[meals:%ld][🕒:%ld]\n"RESET,
+			elapsed, philo->id, philo->n_meals, philo->lst_meal_t);
 	else if (status == THINKING && !sim_finished(philo->table))
 		printf(YELLOW"%-6ld 👤%02d is thinking 💭[meals:%ld]\n"RESET,
 			elapsed, philo->id, philo->n_meals);
