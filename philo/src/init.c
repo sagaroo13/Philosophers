@@ -16,17 +16,21 @@
 #include "../include/philo.h"
 
 
-static void	init_forks(t_table *table)
+static bool	init_forks(t_table *table)
 {
 	int i;
 
 	i = -1;
-	table->forks = malloc_control(sizeof(t_fork) * table->n_philos);
+	table->forks = malloc(sizeof(t_fork) * table->n_philos);
+	if (!table->forks)
+		return (false);
 	while (++i < table->n_philos)
 	{
-		mutex_control(&table->forks[i].fork, INIT);
+		if (mutex_control(&table->forks[i].fork, INIT))
+			return (false);
 		table->forks[i].id = i;
 	}
+	return (true);
 }
 
 static void	assign_forks(t_philo *philo, t_fork *forks)
@@ -40,12 +44,14 @@ static void	assign_forks(t_philo *philo, t_fork *forks)
 	}
 }
 
-static void	init_philos(t_table *table)
+static bool	init_philos(t_table *table)
 {
 	int i;
 
 	i = -1;
-	table->philos = malloc_control(sizeof(t_philo) * table->n_philos);
+	table->philos = malloc(sizeof(t_philo) * table->n_philos);
+	if (!table->philos)
+		return (false);
 	while (++i < table->n_philos)
 	{
 		table->philos[i].id = i + 1;
@@ -53,17 +59,25 @@ static void	init_philos(t_table *table)
 		table->philos[i].full = false;
 		table->philos[i].lst_meal_t = 0;
 		table->philos[i].table = table;
-		mutex_control(&table->philos[i].lst_meal_mtx, INIT);
-		mutex_control(&table->philos[i].n_eats_mtx, INIT);
+		if (mutex_control(&table->philos[i].lst_meal_mtx, INIT))
+			return (false);
+		if (mutex_control(&table->philos[i].n_eats_mtx, INIT))
+			return (false);
 		assign_forks(&table->philos[i], table->forks);
 	}
+	return (true);
 }
 
-void	init(t_table *table)
+bool	init(t_table *table)
 {
 	table->finish = false;
-	init_forks(table);
-	init_philos(table);
-	mutex_control(&table->start_finish, INIT);
-	mutex_control(&table->write, INIT);
+	table->ready = false;
+	table->ready_threads = 0;
+	if (!init_forks(table) || !init_philos(table))
+		return (false);
+	if (mutex_control(&table->start_finish, INIT))
+		return (false);
+	if (mutex_control(&table->write, INIT))
+		return (false);
+	return (true);
 }

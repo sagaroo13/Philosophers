@@ -32,11 +32,15 @@ int	main(int argc, char **argv)
 	t_table table;
 
 	if (argc != 5 && argc != 6)
-		err_exit(CYAN "Usage: <n_philos> <time_to_die> <time_to_eat>"
-						" <time_to_sleep> [<n_eats>]" RESET);
-	parser(&table, argv);
-	init(&table);
-	dinner(&table);
+		return (err(CYAN "Usage: <n_philos> <time_to_die> <time_to_eat>"
+						" <time_to_sleep> [<n_eats>]" RESET), EXIT_FAILURE);
+	if (!parser(&table, argv))
+		return (EXIT_FAILURE);
+	if (!init(&table))
+		return (EXIT_FAILURE);
+	if (!dinner(&table))
+		return (EXIT_FAILURE);
 	// print_philos_info(&table);
 	clean_table(&table);
+	return (EXIT_SUCCESS);
 }

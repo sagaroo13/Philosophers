@@ -15,67 +15,52 @@
 
 #include "../include/philo.h"
 
-void	*malloc_control(size_t q)
+int	mutex_control(pthread_mutex_t *mutex, t_operations operation)
 {
-	void *result;
+	int error;
 
-	result = malloc(q);
-	if (!result)
-		err_exit(RED "Malloc memory allocation failed" RESET);
-	return (result);
-}
-
-void	mutex_control(pthread_mutex_t *mutex, t_operations operation)
-{
-	int err;
-
-	err = 0;
+	error = 0;
 	if (operation == INIT)
-		err = pthread_mutex_init(mutex, NULL);
+		error = pthread_mutex_init(mutex, NULL);
 	else if (operation == DESTROY)
-		err = pthread_mutex_destroy(mutex);
+		error = pthread_mutex_destroy(mutex);
 	else if (operation == LOCK)
-		err = pthread_mutex_lock(mutex);
+		error = pthread_mutex_lock(mutex);
 	else if (operation == UNLOCK)
-		err = pthread_mutex_unlock(mutex);
-	else
-		err_exit(RED "Wrong mutex operation" RESET);
-	if (err)
-		err_exit(RED "Error in mutex operations" RESET);
+		error = pthread_mutex_unlock(mutex);
+	if (error)
+		err(RED "Error in mutex operations" RESET);
+	return (error);
 }
 
-void	thread_control(pthread_t *thread, void *(*func)(void *), void *arg,
+int	thread_control(pthread_t *thread, void *(*func)(void *), void *arg,
 		t_operations operation)
 {
-	int err;
+	int error;
 
-	err = 0;
+	error = 0;
 	if (operation == CREATE)
-		err = pthread_create(thread, NULL, func, arg);
+		error = pthread_create(thread, NULL, func, arg);
 	else if (operation == DETACH)
-		err = pthread_detach(*thread);
+		error = pthread_detach(*thread);
 	else if (operation == JOIN)
-		err = pthread_join(*thread, NULL);
-	else
-		err_exit(RED "Wrong thread operation" RESET);
-	if (err)
-		err_exit(RED "Error in thread operations" RESET);
+		error = pthread_join(*thread, NULL);
+	if (error)
+		err(RED "Error in thread operations" RESET);
+	return (error);
 }
 
 long	time_control(t_time measure)
 {
 	struct timeval	tv;
 
-	if (gettimeofday(&tv, NULL))
-		err_exit("Gettimeofday failed");
+	gettimeofday(&tv, NULL);
 	if (measure == US)
 		return ((tv.tv_sec * 1e6) + tv.tv_usec);
 	else if (measure == MS)
 		return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
 	else if (measure == S)
 		return ((tv.tv_usec / 1e6) + tv.tv_sec);
-	else
-		err_exit(RED "Wrong time operation" RESET);
 	return (0);
 }
 

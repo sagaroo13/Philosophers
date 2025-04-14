@@ -36,11 +36,11 @@ static long	ft_atol(const char *nptr)
 	while (ft_isspace(nptr[i]))
 		i++;
 	if (nptr[i] == '-')
-		err_exit(RED "Input must be positive" RESET);
+		return (err(RED "Input must be positive" RESET), -1);
 	else if (nptr[i] == '+')
 		i++;
 	if (!ft_isdigit(nptr[i]))
-		err_exit(RED "Input must be numeric" RESET);
+		return (err(RED "Input must be numeric" RESET), -1);
 	else
 	{
 		while (ft_isdigit(nptr[i]))
@@ -54,21 +54,32 @@ static long	check_input(const char *argvi)
 	long n;
 
 	n = ft_atol(argvi);
-	if (n > INT_MAX)
-		err_exit(RED "Input must fit in an int" RESET);
+	if (n == -1)
+		return (n);
+	else if (n > INT_MAX)
+		return (err(RED "Input must fit in an int" RESET), -1);
 	return (n);
 }
 
-void	parser(t_table *table, char **argv)
+bool	parser(t_table *table, char **argv)
 {
 	table->n_philos = check_input(argv[1]);
-	if (table->n_philos > MAX_PHILOS)
-		err_exit("Philos must be less than 250");
+	if (table->n_philos == -1)
+		return (false);
+	else if (table->n_philos > MAX_PHILOS)
+		return (err(RED"Philos must be less than 250"RESET), false);
 	table->ttd = check_input(argv[2]) * 1e3;
 	table->tte = check_input(argv[3]) * 1e3;
 	table->tts = check_input(argv[4]) * 1e3;
+	if (table->ttd == -1 * 1e3 || table->tte == -1 * 1e3 || table->tts == -1 * 1e3)
+		return (false);
 	if (argv[5])
+	{
 		table->n_eats = check_input(argv[5]);
+		if (table->n_eats == -1)
+			return (false);
+	}
 	else
 		table->n_eats = -1;
+	return (true);
 }

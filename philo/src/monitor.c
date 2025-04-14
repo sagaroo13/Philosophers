@@ -5,8 +5,8 @@ void    *monitor(void *arg)
     t_table	*table;
 
 	table = (t_table *)arg;
-	synchro_start(table);
-	printf(BLUE"%ld\n"RESET, time_control(US));
+	synchro_monitor_start(table);
+	// printf(BLUE"%ld\n"RESET, time_control(US));
 	while (!table->finish)
 	{
 		died(table);

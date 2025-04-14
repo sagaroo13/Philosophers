@@ -45,7 +45,7 @@
 # define RESET "\033[0m"
 
 # define MAX_PHILOS 250
-# define DEBUG 1
+# define DEBUG 0
 
 /******************************************************************************
  *                                 Structures
@@ -82,6 +82,7 @@ typedef struct s_table
 	long	tts;
 	long	n_eats;
 	long	start;
+	long	ready_threads;
 	bool	ready;
 	bool	finish;
 	pthread_mutex_t	start_finish;
@@ -124,30 +125,31 @@ typedef enum e_status
  *
  ******************************************************************************/
 
-void	err_exit(const char *msg);
-void	*malloc_control(size_t q);
-void	mutex_control(pthread_mutex_t *mutex, t_operations operation);
-void	thread_control(pthread_t *thread, void *(*func)(void *), void *arg,
+void	err(const char *msg);
+int		mutex_control(pthread_mutex_t *mutex, t_operations operation);
+int	thread_control(pthread_t *thread, void *(*func)(void *), void *arg,
 		t_operations operation);
 long	time_control(t_time measure);
-void	parser(t_table *table, char **argv);
-void	init(t_table *table);
+bool	parser(t_table *table, char **argv);
+bool	init(t_table *table);
 void	clean_table(t_table *table);
 void	set_bool(pthread_mutex_t *mutex, bool *target, bool value);
 bool	get_bool(pthread_mutex_t *mutex, bool *target);
 void	set_long(pthread_mutex_t *mutex, long *target, long value);
 long	get_long(pthread_mutex_t *mutex, long *target);
-void	dinner(t_table *table);
+void	increase_long(pthread_mutex_t *mutex, long *target);
+bool	dinner(t_table *table);
 void	*monitor(void *arg);
-void	synchro_start(t_table *table);
+void	synchro_thread_start(t_table *table);
 void	*simulation(void *arg);
-void	create_or_join_all(t_table *table, t_operations operation);
+bool	create_or_join_all(t_table *table, t_operations operation);
 bool	sim_finished(t_table *table);
 void	print_status(t_philo *philo, t_status status);
 void	good_usleep(long usec, t_table *table);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
-void	thinking(t_philo *philo);
+void	thinking(t_philo *philo, bool print);
 void	died(t_table *table);
+void	synchro_monitor_start(t_table *table);
 
 #endif

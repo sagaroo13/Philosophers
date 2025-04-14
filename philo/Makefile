@@ -20,7 +20,7 @@ SRC_BONUS =
 OBJ_BONUS =
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -pthread -fsanitize=address -g3
+CFLAGS = -Wall -Werror -Wextra -pthread
 
 LIBFT = libft/libft.a
 
