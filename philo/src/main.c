@@ -15,17 +15,17 @@
 
 #include "../include/philo.h"
 
-void	print_philos_info(t_table *table)
-{
-	for (int i = 0; i < table->n_philos; i++)
-	{
-		printf("Philo id: %d\nFirst fork: %d\nSecond fork: %d\n",
-			table->philos[i].id, table->philos[i].first->id,
-			table->philos[i].second->id);
-		if (i < table->n_philos - 1)
-			printf("\n");
-	}
-}
+// void	print_philos_info(t_table *table)
+// {
+// 	for (int i = 0; i < table->n_philos; i++)
+// 	{
+// 		printf("Philo id: %d\nFirst fork: %d\nSecond fork: %d\n",
+// 			table->philos[i].id, table->philos[i].first->id,
+// 			table->philos[i].second->id);
+// 		if (i < table->n_philos - 1)
+// 			printf("\n");
+// 	}
+// }
 
 int	main(int argc, char **argv)
 {
@@ -37,10 +37,9 @@ int	main(int argc, char **argv)
 	if (!parser(&table, argv))
 		return (EXIT_FAILURE);
 	if (!init(&table))
-		return (EXIT_FAILURE);
+		return (clean_table(&table), EXIT_FAILURE);
 	if (!dinner(&table))
-		return (EXIT_FAILURE);
-	// print_philos_info(&table);
+		return (clean_table(&table), EXIT_FAILURE);
 	clean_table(&table);
 	return (EXIT_SUCCESS);
 }

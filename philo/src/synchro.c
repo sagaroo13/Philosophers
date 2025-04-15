@@ -6,7 +6,7 @@ void	synchro_thread_start(t_table *table)
 		;
 }
 
-bool	monitor_ready(t_table * table)
+static bool	monitor_ready(t_table * table)
 {
 	bool	ready;
 

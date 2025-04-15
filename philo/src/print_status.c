@@ -1,6 +1,6 @@
 #include "../include/philo.h"
 
-void	print_debug(t_philo *philo, t_status status, long elapsed)
+static void	print_debug(t_philo *philo, t_status status, long elapsed)
 {
 	if (status == FORK_1 && !sim_finished(philo->table))
 		printf(MAGENTA"%-6ld 👤%02d has taken fork nº1 🍴[meals:%ld][fork_id:%d]\n"RESET,

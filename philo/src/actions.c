@@ -29,12 +29,10 @@ void	thinking(t_philo *philo, bool print)
 
 	elapsed = (time_control(MS) - philo->lst_meal_t) * 1e3;
 	ttt = (philo->table->ttd - elapsed - philo->table->tte) / 2;
-	// printf(RED"%f\t%f\n"RESET, (ttt / 1e3), (elapsed /1e3));
 	if (ttt <= 0)
 		ttt = 1 * 1e3;
 	else if (ttt > 700 * 1e3)
 		ttt = 300 * 1e3;
-	// printf(BLUE"%f\n"RESET, ttt / 1e3);
 	if (print)
 		print_status(philo, THINKING);
 	good_usleep(ttt, philo->table);
@@ -44,7 +42,6 @@ void	died(t_table *table)
 {
 	int	i;
 	long	elapsed;
-	// long	lst_meal_t;
 
 	i = -1;
 	while (++i < table->n_philos)
@@ -52,9 +49,7 @@ void	died(t_table *table)
 		if (get_bool(&table->philos[i].n_eats_mtx, &table->philos[i].full))
 			continue;
 		mutex_control(&table->philos[i].lst_meal_mtx, LOCK);
-		// get_long(&table->philos[i].lst_meal_mtx, &lst_meal_t);
 		elapsed = (time_control(MS) - table->philos[i].lst_meal_t) * 1e3;
-		// printf("%ld\t%ld\n", elapsed, table->ttd);
 		if (elapsed >= table->ttd)
 		{
 			print_status(&table->philos[i], DIED);

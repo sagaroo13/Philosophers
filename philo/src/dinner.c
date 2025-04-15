@@ -12,6 +12,20 @@
 
 #include "../include/philo.h"
 
+void    *monitor(void *arg)
+{
+    t_table	*table;
+
+	table = (t_table *)arg;
+	synchro_monitor_start(table);
+	while (!table->finish)
+	{
+		died(table);
+		good_usleep(1e3, table);
+	}
+	return (NULL);
+}
+
 void	*simulation(void *arg)
 {
 	t_philo	*philo;
@@ -50,7 +64,7 @@ void	*alone_philo(void *arg)
 bool	dinner(t_table *table)
 {
 	if (!table->n_eats)
-		return (false);
+		return (true);
 	else if (table->n_philos == 1)
 	{
 		if (thread_control(&table->philos[0].thread_id, alone_philo, &table->philos[0], CREATE))

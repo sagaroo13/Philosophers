@@ -15,7 +15,6 @@
 
 #include "../include/philo.h"
 
-
 static bool	init_forks(t_table *table)
 {
 	int i;
