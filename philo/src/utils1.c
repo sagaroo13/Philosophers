@@ -14,7 +14,7 @@
 
 int	mutex_control(pthread_mutex_t *mutex, t_operations operation)
 {
-	int error;
+	int	error;
 
 	error = 0;
 	if (operation == INIT)
@@ -33,7 +33,7 @@ int	mutex_control(pthread_mutex_t *mutex, t_operations operation)
 int	thread_control(pthread_t *thread, void *(*func)(void *), void *arg,
 		t_operations operation)
 {
-	int error;
+	int	error;
 
 	error = 0;
 	if (operation == CREATE)

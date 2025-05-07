@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsagaro- <jsagaro-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 11:30:44 by jsagaro-          #+#    #+#             */
-/*   Updated: 2025/05/07 11:30:44 by jsagaro-         ###   ########.fr       */
+/*   Created: 2025/05/07 11:50:35 by jsagaro-          #+#    #+#             */
+/*   Updated: 2025/05/07 11:50:35 by jsagaro-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	init_forks(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	table->forks = malloc(sizeof(t_fork) * table->n_philos);
@@ -42,7 +42,7 @@ static void	assign_forks(t_philo *philo, t_fork *forks)
 
 static bool	init_philos(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	table->philos = malloc(sizeof(t_philo) * table->n_philos);

@@ -18,7 +18,7 @@ void	synchro_thread_start(t_table *table)
 		;
 }
 
-static bool	monitor_ready(t_table * table)
+static bool	monitor_ready(t_table *table)
 {
 	bool	ready;
 
@@ -28,7 +28,6 @@ static bool	monitor_ready(t_table * table)
 		ready = true;
 	mutex_control(&table->start_finish, UNLOCK);
 	return (ready);
-
 }
 
 void	synchro_monitor_start(t_table *table)

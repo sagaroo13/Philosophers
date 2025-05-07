@@ -19,7 +19,7 @@ void	err(const char *msg)
 
 void	clean_table(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < table->n_philos)
@@ -49,8 +49,8 @@ bool	create_or_join_all(t_table *table, t_operations operation)
 	{
 		while (++i < table->n_philos)
 		{
-			if (thread_control(&table->philos[i].thread_id, simulation, &table->philos[i],
-				operation))
+			if (thread_control(&table->philos[i].thread_id,
+					simulation, &table->philos[i], operation))
 				return (false);
 		}
 	}
@@ -62,7 +62,7 @@ bool	create_or_join_all(t_table *table, t_operations operation)
 	return (true);
 }
 
-bool sim_finished(t_table *table)
+bool	sim_finished(t_table *table)
 {
-    return (get_bool(&table->start_finish, &table->finish));
+	return (get_bool(&table->start_finish, &table->finish));
 }

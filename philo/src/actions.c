@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsagaro- <jsagaro-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 11:30:20 by jsagaro-          #+#    #+#             */
-/*   Updated: 2025/05/07 11:30:20 by jsagaro-         ###   ########.fr       */
+/*   Created: 2025/05/07 11:40:32 by jsagaro-          #+#    #+#             */
+/*   Updated: 2025/05/07 11:40:32 by jsagaro-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ void	thinking(t_philo *philo, bool print)
 
 void	died(t_table *table)
 {
-	int	i;
+	int		i;
 	long	elapsed;
 
 	i = -1;
 	while (++i < table->n_philos)
 	{
 		if (get_bool(&table->philos[i].n_eats_mtx, &table->philos[i].full))
-			continue;
+			continue ;
 		mutex_control(&table->philos[i].lst_meal_mtx, LOCK);
 		elapsed = (time_control(MS) - table->philos[i].lst_meal_t) * 1e3;
 		if (elapsed >= table->ttd)

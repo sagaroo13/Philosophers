@@ -46,45 +46,45 @@
  *                                 Structures								  *
  ******************************************************************************/
 
-typedef struct s_table t_table;
+typedef struct s_table	t_table;
 
 typedef struct s_fork
 {
-	pthread_mutex_t fork;
-	int id;
-} t_fork;
+	pthread_mutex_t	fork;
+	int				id;
+}	t_fork;
 
 typedef struct s_philo
 {
-	int id;
-	long n_meals;
-	bool full;
-	long lst_meal_t;
-	t_fork *first;
-	t_fork *second;
-	pthread_t thread_id;
+	int				id;
+	long			n_meals;
+	bool			full;
+	long			lst_meal_t;
+	t_fork			*first;
+	t_fork			*second;
+	pthread_t		thread_id;
 	pthread_mutex_t	lst_meal_mtx;
 	pthread_mutex_t	n_eats_mtx;
-	t_table *table;
-} t_philo;
+	t_table			*table;
+}	t_philo;
 
 typedef struct s_table
 {
-	long	n_philos;
-	long	ttd;
-	long	tte;
-	long	tts;
-	long	n_eats;
-	long	start;
-	long	ready_threads;
-	bool	ready;
-	bool	finish;
+	long			n_philos;
+	long			ttd;
+	long			tte;
+	long			tts;
+	long			n_eats;
+	long			start;
+	long			ready_threads;
+	bool			ready;
+	bool			finish;
 	pthread_mutex_t	start_finish;
 	pthread_mutex_t	write;
-	pthread_t	monitor;
-	t_fork	*forks;
-	t_philo	*philos;
-} t_table;
+	pthread_t		monitor;
+	t_fork			*forks;
+	t_philo			*philos;
+}	t_table;
 
 typedef enum e_operations
 {
@@ -95,7 +95,7 @@ typedef enum e_operations
 	CREATE,
 	DETACH,
 	JOIN,
-} t_operations;
+}	t_operations;
 
 typedef enum e_time
 {
@@ -120,8 +120,8 @@ typedef enum e_status
 
 void	err(const char *msg);
 int		mutex_control(pthread_mutex_t *mutex, t_operations operation);
-int	thread_control(pthread_t *thread, void *(*func)(void *), void *arg,
-		t_operations operation);
+int		thread_control(pthread_t *thread, void *(*func)(void *), void *arg,
+			t_operations operation);
 long	time_control(t_time measure);
 bool	parser(t_table *table, char **argv);
 bool	init(t_table *table);

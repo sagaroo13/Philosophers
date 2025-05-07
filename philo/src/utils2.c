@@ -6,7 +6,7 @@
 /*   By: jsagaro- <jsagaro-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 19:07:00 by jsagaro-          #+#    #+#             */
-/*   Updated: 2025/05/07 11:31:32 by jsagaro-         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:55:08 by jsagaro-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_bool(pthread_mutex_t *mutex, bool *target, bool value)
 
 bool	get_bool(pthread_mutex_t *mutex, bool *target)
 {
-	bool value;
+	bool	value;
 
 	mutex_control(mutex, LOCK);
 	value = *target;
@@ -38,7 +38,7 @@ void	set_long(pthread_mutex_t *mutex, long *target, long value)
 
 long	get_long(pthread_mutex_t *mutex, long *target)
 {
-	long value;
+	long	value;
 
 	mutex_control(mutex, LOCK);
 	value = *target;

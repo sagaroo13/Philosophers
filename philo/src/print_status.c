@@ -15,10 +15,12 @@
 static void	print_debug(t_philo *philo, t_status status, long elapsed)
 {
 	if (status == FORK_1 && !sim_finished(philo->table))
-		printf(MAGENTA"%-6ld 👤%02d has taken fork nº1 🍴[meals:%ld][fork_id:%d]\n"RESET,
+		printf(MAGENTA"%-6ld 👤%02d has taken fork nº1"
+			" 🍴[meals:%ld][fork_id:%d]\n"RESET,
 			elapsed, philo->id, philo->n_meals, philo->first->id);
 	else if (status == FORK_2 && !sim_finished(philo->table))
-		printf(MAGENTA"%-6ld 👤%02d has taken fork nº2 🍴[meals:%ld][fork_id:%d]\n"RESET,
+		printf(MAGENTA"%-6ld 👤%02d has taken fork nº2"
+			" 🍴[meals:%ld][fork_id:%d]\n"RESET,
 			elapsed, philo->id, philo->n_meals, philo->second->id);
 	else if (status == EATING && !sim_finished(philo->table))
 		printf(CYAN"%-6ld 👤%02d is eating 🍝[meals:%ld]\n"RESET,
@@ -34,7 +36,6 @@ static void	print_debug(t_philo *philo, t_status status, long elapsed)
 			elapsed, philo->id, philo->n_meals);
 }
 
-
 void	print_status(t_philo *philo, t_status status)
 {
 	long	elapsed;
@@ -47,7 +48,8 @@ void	print_status(t_philo *philo, t_status status)
 		print_debug(philo, status, elapsed);
 	else
 	{
-		if ((status == FORK_1 || status == FORK_2) && !sim_finished(philo->table))
+		if ((status == FORK_1 || status == FORK_2)
+			&& !sim_finished(philo->table))
 			printf("%ld %d has taken a fork\n", elapsed, philo->id);
 		else if (status == EATING && !sim_finished(philo->table))
 			printf("%ld %d is eating\n", elapsed, philo->id);

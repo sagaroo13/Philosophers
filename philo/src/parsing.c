@@ -12,7 +12,6 @@
 
 #include "../include/philo.h"
 
-
 static inline bool	ft_isdigit(int c)
 {
 	return (c >= '0' && c <= '9');
@@ -25,8 +24,8 @@ static inline bool	ft_isspace(int c)
 
 static long	ft_atol(const char *nptr)
 {
-	long i;
-	unsigned long res;
+	long			i;
+	unsigned long	res;
 
 	i = 0;
 	res = 0;
@@ -48,7 +47,7 @@ static long	ft_atol(const char *nptr)
 
 static long	check_input(const char *argvi)
 {
-	long n;
+	long	n;
 
 	n = ft_atol(argvi);
 	if (n == -1)
@@ -68,7 +67,8 @@ bool	parser(t_table *table, char **argv)
 	table->ttd = check_input(argv[2]) * 1e3;
 	table->tte = check_input(argv[3]) * 1e3;
 	table->tts = check_input(argv[4]) * 1e3;
-	if (table->ttd == -1 * 1e3 || table->tte == -1 * 1e3 || table->tts == -1 * 1e3)
+	if (table->ttd == -1 * 1e3 || table->tte == -1 * 1e3
+		|| table->tts == -1 * 1e3)
 		return (false);
 	if (argv[5])
 	{
